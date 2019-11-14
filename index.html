@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Encriptar</title>
+    <link href="css/bulma.min.css" type="text/css" rel="stylesheet">
+    <link href="css/style.css" type="text/css" rel="stylesheet">
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Share+Tech+Mono" rel="stylesheet">
+</head>
+<body>
+<nav class="nav has-shadow has-dropdown">
+    <div class="nav-left">
+        <a class="nav-item ciphered-name" href="#">
+            <span><i class="fa fa-key" aria-hidden="true"></i></span>
+            <span>Electiva Seguridad Informatica</span>
+        </a>
+    </div>
+
+    <span class="nav-toggle">
+        <span></span>
+        <span></span>
+        <span></span>
+    </span>
+
+    <div id="nav-menu" class="nav-right nav-menu">
+        <a class="nav-item nali" id="about">
+            Acerca de proyecto
+        </a>
+        <span class="nav-item">
+        <a class="button nav-encrypt-btn" href="#">
+            <span>Encriptacion de Texto</span>
+        </a>
+        </span>
+    </div>
+
+</nav>
+<section class="hero is-info is-bold">
+    <div class="hero-body">
+        <div class="container">
+            <h1 class="title">
+                ELECTIVA CPC - Seguridad Informatica Uniminuto</h1>
+            <h2 class="subtitle" id="typed">
+                <span id="texttype"></span><span id='cursor'>|</span>
+            </h2>
+        </div>
+    </div>
+</section>
+<div class="container">
+    <section class="section">
+        <div class="container">
+            <div class="heading">
+                <h1 class="title" id="title">Cifrado de sustitución - cifrados classicos</h1>
+                <p class="title is-5" id="description">
+                        Un cifrado de sustitución es un método para codificar [sustituir] cada carácter de texto sin formato en un
+                        carácter de texto cifrado
+                </p>
+            </div>
+        </div>
+    </section>
+</div>
+<div class="columns">
+    <div class="column is-8 is-offset-2">
+        <div class="notification is-danger has-text-centered animated" id="notify">
+            <button class="delete del-warn"></button>
+            ¡Aviso! No utilice esto como medio para cifrar datos personales o importantes.
+        </div>
+    </div>
+</div>
+<div class="modal" id="aboutModal">
+        <div class="modal-background"></div>
+        <div class="modal-card">
+            <header class="modal-card-head">
+                <p class="modal-card-title">Sobre este sitio</p>
+                <button class="delete mod-close"></button>
+            </header>
+            <section class="modal-card-body">
+                    Este sitio fue creado para aprender y compartir algunos métodos diferentes de codificación de texto sin formato
+                    en texto cifrado ilegible. En el transcurso de miles de años,
+                    la gente ha tenido un deseo de privacidad y / o secreto. Este proyecto fue asumido para aprender
+                    métodos de cifrado simples que se han utilizado a lo largo de la historia. Si bien también permite
+                    para que cualquiera pueda escribir un mensaje y poder compartirlo con amigos o twittearlo al mundo.
+            </section>
+            <footer class="modal-card-foot">
+            </footer>
+        </div>
+    </div>
+<!-- Begin Content -->
+
+<div class="columns" id="encrypt-sec">
+    <div class="column is-half-desktop is-half-tablet is-10-mobile is-offset-1-mobile is-offset-one-quarter">
+        <div class="columns">
+
+            <div class="column is-half">
+                <label class="label">Cifrar Texto<a href="#"><i class="fa fa-question-circle-o" aria-hidden="true"></i></a></label>
+                <p class="control">
+  <span class="select">
+
+
+    <select class="ciphselect" id="cipherSelect">
+        <option value="none" disabled selected>Seleccionar </option>
+        <option value="caesar">Cifrado César</option>
+        <option value="substitution">Cifrado de sustitución</option>
+        <option value="rot13">ROT13</option>
+        <option value="vigenere">Vigenère</option>
+    </select>
+  </span>
+                    <i class="fa fa-warning s-warn"></i>
+                    <span class="help h-select is-danger">Debes seleccionar un cifrado</span>
+
+                </p>
+            </div>
+            <div class="column is-half">
+                <div id="vigenere-input">
+                    <label class="label">Vigenère clave</label>
+                    <p class="control">
+                        <!-- TODO: Get input value for vigenere key -->
+                        <input class="input" id="vigenereKey" type="text" placeholder="Ex: &quot;Boom&quot;">
+                        <span class="v-help v-text" id="v-err-text">Debe introducir una clave<i
+                                class="fa fa-warning v-warn"></i></span>
+                    </p>
+                </div>
+                <div id="key-col">
+                    <label class="label" id="subSelectLabel">Clave de sustitución</label>
+                    <p class="control">
+                    <span class="select" id="slct">
+                    <select class="subselect" id="subSelect">
+                    <option value="none" disabled selected>Elegir subtitulación</option>
+                    </select>
+                    </span>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+
+        <label class="label">Ingresar mensaje</label>
+        <p class="control">
+            <textarea class="textarea" id="enText" placeholder="Escribe tu mensaje aquí"></textarea>
+            <span class="help h-text is-danger">Debes completar un mensaje <i class="fa fa-warning t-warn"></i></span>
+
+        </p>
+
+
+        <div class="columns">
+            <p class="control column is-half is-offset-3">
+                <button class="button is-primary" id="encryptMessage"><i class="fa fa-lock" aria-hidden="true"></i>
+                    Encriptar
+                </button>
+                <button class="button is-info is-info" id="decryptMessage"><i class="fa fa-unlock-alt"
+                                                                              aria-hidden="true"></i>
+                    Descifrar
+                </button>
+                <button class="button is-small" id="clearCancel">Cancel</button>
+            </p>
+        </div>
+
+        <progress class="progress is-small" id="progbar"></progress>
+        <p class="control">
+            <textarea class="textarea" id="msgdisplay" placeholder="El cifrado se vera aqui"></textarea>
+        </p>
+    </div>
+</div>
+
+<section class="section" id="sub-section">
+    <!--container-->
+    <div class="columns">
+        <div class="column is-12-mobile is-10-desktop is-offset-1-desktop is-half-widescreen is-offset-one-quarter-widescreen">
+            <article class="message top-b">
+                <div class="message-header mds" id="plain-key-title">
+                    Clave de sustitución:
+                </div>
+                <div class="message-body">
+                    <h2 class="title is-3 abc-plaintext"></h2>
+                </div>
+            </article>
+            <div class="arrows">
+                <i class="fa fa-arrows-v fa-2x" aria-hidden="true"></i><i class="fa fa-arrows-v fa-2x"
+                                                                          aria-hidden="true"></i><i
+                    class="fa fa-arrows-v fa-2x" aria-hidden="true"></i><i class="fa fa-arrows-v fa-2x"
+                                                                           aria-hidden="true"></i><i
+                    class="fa fa-arrows-v fa-2x" aria-hidden="true"></i><i class="fa fa-arrows-v fa-2x"
+                                                                           aria-hidden="true"></i><i
+                    class="fa fa-arrows-v fa-2x" aria-hidden="true"></i><i class="fa fa-arrows-v fa-2x"
+                                                                           aria-hidden="true"></i><i
+                    class="fa fa-arrows-v fa-2x" aria-hidden="true"></i><i class="fa fa-arrows-v fa-2x"
+                                                                           aria-hidden="true"></i><i
+                    class="fa fa-arrows-v fa-2x" aria-hidden="true"></i><i class="fa fa-arrows-v fa-2x"
+                                                                           aria-hidden="true"></i><i
+                    class="fa fa-arrows-v fa-2x" aria-hidden="true"></i><i class="fa fa-arrows-v fa-2x"
+                                                                           aria-hidden="true"></i><i
+                    class="fa fa-arrows-v fa-2x" aria-hidden="true"></i>
+            </div>
+            <article class="message is-info top-b">
+                <div class="message-body">
+                    <h2 class="title is-3 abc-cipher"></h2>
+                </div>
+                <div class="message-header" id="cipher-key-title">
+                    Texto cifrado:
+                </div>
+            </article>
+        </div>
+    </div>
+</section>
+
+<section id="vig-section">
+    <!-- TODO fix border bug on resize from key above table -->
+
+    <div class="columns">
+        <div class="column is-1-desktop" id="container-vert"><p class="no-select vertical-text title is-1">Tu texto
+                Caracteres</p></div>
+        <div class="column is-10-desktop is-8-widescreen">
+            <p class="has-text-centered title is-1 no-select">Clave de cifrado de Vigenère</p>
+            <div id="tableresult"></div>
+        </div>
+    </div>
+
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+    <div class="container">
+        <div class="content has-text-centered">
+            <p>
+                <strong>Desarrollado</strong> por <a href="http://anezsoft.com"> ------</a>
+            </p>
+        </div>
+    </div>
+</footer>
+<!-- End Footer -->
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+<script src="js/script.js"></script>
+</body>
+</html>
